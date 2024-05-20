@@ -6,19 +6,22 @@ from body import Body
 from tiGadgets import field_abs_max, scalerField_from_matrixField, vectorField_max
 import time, os; os.system("")
 
+testpath = "E:\\__phd_courses\\cg_simulation\\project\\FEMcy\\tests\\"
+fileName = "beam_deflection\load100_smallDef\\beamDeflec_quadPSE_smallD_load100_fixX.inp"
 
 if __name__ == "__main__":
     ti.init(arch=ti.cuda, default_fp=ti.f64)
     
     ### input abaqus .inp format file, including file path and name
+    """
     fileName = input("\033[32;1m please give the .inp format's "
                         "input file path and name: \033[0m")  
     inpName = fileName.split("/")[-1] if "/" in fileName else fileName.split("\\")[-1]
     inpName = inpName.split(".inp")[0]
     inpPath = fileName[: -len(inpName+".inp")]
-
+    """
     ### use the inp file to apply finite element analysis
-    inp = Inp_info(fileName)
+    inp = Inp_info(testpath+fileName)
     nodes, eSets = inp.nodes, inp.eSets
     body = Body(nodes=nodes, elements=list(eSets.values())[0], ELE=inp.ELE)
     material = list(inp.materials.values())[0]
